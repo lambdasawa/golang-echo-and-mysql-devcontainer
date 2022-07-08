@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0.29
+    environment:
+      MYSQL_DATABASE: foo
+      MYSQL_ROOT_PASSWORD: root
+  web:
+    build: .
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    working_dir: /workspace
+    volumes:
+      - .:/workspace:cached
+    ports:
+      - "1323:1323"
+    depends_on:
+      - db
